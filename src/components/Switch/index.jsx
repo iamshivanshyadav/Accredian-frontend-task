@@ -1,6 +1,4 @@
 import React from "react";
-
-import SwitchProvider from "@dhiwise/react-switch";
 import PropTypes from "prop-types";
 
 const sizes = {
@@ -16,23 +14,43 @@ const Switch = ({
   checkedIcon = <></>,
   uncheckedIcon = <></>,
   onChange,
-
   size = "xs",
 }) => {
   const [selected, setSelected] = React.useState(value);
-  const handleChange = (val) => {
-    setSelected(val);
-    onChange?.(val);
+  
+  const handleChange = (event) => {
+    const newValue = event.target.checked;
+    setSelected(newValue);
+    onChange?.(newValue);
   };
+  
   return (
     <div className={className}>
-      <SwitchProvider
-        checked={selected}
-        onChange={handleChange}
-        {...sizes[size]}
-        checkedIcon={checkedIcon}
-        uncheckedIcon={uncheckedIcon}
-      />
+      <div
+        style={{
+          width: sizes[size].width,
+          height: sizes[size].height,
+          borderRadius: sizes[size].height / 2,
+          backgroundColor: selected ? "#4CAF50" : "#ccc",
+          display: "flex",
+          alignItems: "center",
+          cursor: "pointer",
+          padding: 2,
+        }}
+        onClick={() => handleChange({ target: { checked: !selected } })}
+      >
+        <span
+          style={{
+            display: "inline-block",
+            width: sizes[size].height - 4,
+            height: sizes[size].height - 4,
+            borderRadius: "50%",
+            backgroundColor: "#fff",
+            transition: "transform 0.3s ease",
+            transform: selected ? `translateX(${sizes[size].width - sizes[size].height}px)` : "translateX(0)",
+          }}
+        />
+      </div>
     </div>
   );
 };
