@@ -41,7 +41,7 @@ const ReferralForm = ({ open, onClose }) => {
     };
 
     try {
-      const response = await fetch('http://localhost:5000/referral', {
+      const response = await fetch('https://accredian-backend-task-9ut4.onrender.com/referral', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
